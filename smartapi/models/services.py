@@ -1,4 +1,4 @@
-from smartapi.Models.models import Citie
+from smartapi.models.models import Citie
 
 
 class CitiesService:
@@ -7,4 +7,6 @@ class CitiesService:
     def get_cities(cls):
         cities = Citie.objects.all()
         return cities
+    
+
 

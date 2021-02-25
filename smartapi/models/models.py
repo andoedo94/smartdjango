@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from smartapi.Models.enums import LinkPlace
+from smartapi.models.enums import LinkPlace
 
 
 class Citie(models.Model):

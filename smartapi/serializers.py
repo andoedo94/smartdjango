@@ -1,14 +1,14 @@
 from rest_framework import serializers
 
-from smartapi.Models.enums import LinkPlace
-from smartapi.Models.models import Citie
+from smartapi.models.enums import LinkPlace
+from smartapi.models.models import Citie
 
 
-class CitieSerializer(serializers.HyperlinkedModelSerializer):
+class CitieSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Citie
-        fields = ('id', 'name', 'latitude', 'longitude', 'left', 'down', 'right', 'up', 'created_at', 'updated_at', 'url', 'link')
+        fields = '__all__'
 
 
 class LinkSerializer(serializers.Serializer):

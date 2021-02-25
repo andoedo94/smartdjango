@@ -5,7 +5,7 @@ import logging
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from smartapi.Models.services import CitiesService
+from smartapi.models.services import CitiesService
 from smartapi.serializers import CitieSerializer, CitieSerializerCreate
 
 
@@ -16,7 +16,7 @@ class CitieViewSet(viewsets.ViewSet):
         try:
             cities = CitiesService.get_cities()
             citiesserialized = CitieSerializer(cities, many = True)
-            return Response({'success': True, 'cities': citiesserialized.data}, HTTPStatus.OK)
+            return Response({'success': True, 'data': citiesserialized.data}, HTTPStatus.OK)
         except Exception as exception:
             logging.error("Error in server detail: " + str(exception))
             return Response({'success': False}, HTTPStatus.INTERNAL_SERVER_ERROR)
@@ -26,7 +26,7 @@ class CitieViewSet(viewsets.ViewSet):
         try:
             serializer = CitieSerializerCreate(data=request.data)
             if serializer.is_valid():
-
+                #ddddddddddddddddddddddddddd
                 return Response({'success': True}, HTTPStatus.CREATED)
             else:
                 return Response({'success': False, 'errors': serializer.errors},
