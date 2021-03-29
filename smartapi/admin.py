@@ -1,4 +1,4 @@
 from django.contrib import admin
-from smartapi.models.models import Citie
+from smartapi.models.models import City
 
-admin.site.register(Citie)
+admin.site.register(City)

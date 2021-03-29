@@ -10,6 +10,7 @@ class CustomCorsMiddleware:
         response = self.get_response(request)
         response["Access-Control-Allow-Origin"] = "*"
         response["Access-Control-Allow-Headers"] = "*"
+        response["Access-Control-Request-Methods"] = "GET, POST, PATCH, PUT, DELETE, OPTIONS"
 
         # Code to be executed for each request/response after
         # the view is called.
