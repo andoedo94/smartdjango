@@ -1,5 +1,7 @@
 from django.contrib.postgres.fields import HStoreField
+from django.contrib.gis.db import models as models_gis
 from django.db import models
+
 
 
 # Create your models here.
@@ -77,4 +79,40 @@ class Node(models.Model):
 class WayNode(models.Model):
     way = models.ForeignKey(Way, on_delete=models.CASCADE, related_name='waynode')
     node = models.ForeignKey(Node, on_delete=models.CASCADE)
+
+
+class UserTweet(models.Model):
+    lang = models.CharField(max_length=10, null=True)
+    time_zone = models.CharField(max_length=50, null=True)
+    location = models.CharField(max_length=100, null=True)
+    duration = models.IntegerField(null=True)
+    is_bot = models.BooleanField(null=True)
+    estancia = models.IntegerField(null=True)
+    is_tourist = models.BooleanField(null=True)
+    user_id = models.BigIntegerField()
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='usercity')
+
+
+class Tweet(models.Model):
+    text = models.CharField(max_length=255)
+    user = models.ForeignKey(UserTweet, on_delete=models.CASCADE, related_name='usertweet')
+    creation_date = models.DateField(null=True)
+    creation_hour = models.TimeField(null=True)
+    lang = models.CharField(max_length=10, null=True)
+    point = models_gis.PointField(null=True)
+    geography = models_gis.PointField(null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='twcity')
+    tweet_id = models.BigIntegerField()
+
+
+class Routine(models.Model):
+    initial_date = models.DateField()
+    final_date = models.DateField()
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='routinecity')
+    runs = models.IntegerField(null=True)
+    active = models.BooleanField(default=True)
+
+
+
+
 

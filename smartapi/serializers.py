@@ -29,3 +29,9 @@ class CitieSerializerCreate(serializers.Serializer):
     links = LinkSerializer(required=False, many=True)
 
 
+class RoutinesDaily(serializers.Serializer):
+    initial_date = serializers.DateField()
+    final_date = serializers.DateField()
+    city = serializers.IntegerField(max_value=None, min_value=None)
+
+

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'background_task',
     'rest_framework',
     'smartapi.apps.SmartapiConfig',
     'django.contrib.admin',
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.postgres'
+    'django.contrib.postgres',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +84,7 @@ WSGI_APPLICATION = 'smartcities.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'smartcitiespy',
         'USER': 'test',
         'PASSWORD': 'Admin2015$',
@@ -131,3 +134,19 @@ STATIC_URL = '/static/'
 
 OSM_URL = 'https://lz4.overpass-api.de/api/interpreter'
 MAX_SIZE = 228
+CONSUMER_KEY_TW = 'f1ScqQjvm23tV17CYfy5p67SW'
+CONSUMER_SECRET_TW = 'MlLH00N1fx2InPx3L4PE2tkfxtc1Ml3H1lupc7lf8sDNNTskfI'
+ACCESS_TOKEN_TW = '209742755-0o5ZEVI7rkmo7JbEXTeeBM9C39IVQf9QnpDqw0Ao'
+ACCESS_TOKEN_SECRET_TW = 'KLnyKZOLW1lzJucAnovLEldVJeLJrbrfi6AJ5ssFpGuQ4'
+
+
+if os.name == 'nt':
+    import platform
+    OSGEO4W = r"C:\OSGeo4W"
+    if '64' in platform.architecture()[0]:
+        OSGEO4W += "64"
+    assert os.path.isdir(OSGEO4W), "Directory does not exist: " + OSGEO4W
+    os.environ['OSGEO4W_ROOT'] = OSGEO4W
+    os.environ['GDAL_DATA'] = OSGEO4W + r"\share\gdal"
+    os.environ['PROJ_LIB'] = OSGEO4W + r"\share\proj"
+    os.environ['PATH'] = OSGEO4W + r"\bin;" + os.environ['PATH']
